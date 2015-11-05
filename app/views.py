@@ -86,3 +86,4 @@ def after_login(resp):
 #Loads user object from db for Flask-Login
 def load_user(id):
 	return User.query.get(int(id))
+	
