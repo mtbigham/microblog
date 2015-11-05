@@ -8,7 +8,7 @@ from .models import User
 @app.route('/index')
 @login_required
 def index():
-	user = g.current_user
+	user = g.user
 	posts = [
 		{
 			'author': {'nickname': 'John'},
@@ -37,6 +37,19 @@ def login():
 def logout():
 	logout_user()
 	return redirect(url_for('index'))
+	
+@app.route('/user/<nickname>')
+@login_required
+def user(nickname):
+	user = User.query.filter_by(nickname=nickname).first()
+	if user == None:
+		flash('User %s not found.' % nickname)
+		return redirect(url_for('index'))
+	posts = [
+		{'author': user, 'body': 'Test post #1'},
+		{'author': user, 'body': 'Test post #2'}
+	]
+	return render_template('user.html', user=user, posts=posts)
 
 #TODO: Learn about how the before_request Flask event works
 @app.before_request
