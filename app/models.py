@@ -1,5 +1,7 @@
 from app import db
 from hashlib import md5
+from flask.ext.login import UserMixin
+import urllib, hashlib
 
 #User -> user many-many followers table
 followers = db.Table('followers',
@@ -7,7 +9,7 @@ followers = db.Table('followers',
 	db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
 
-class User(db.Model):
+class User(UserMixin, db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	nickname = db.Column(db.String(64), index=True, unique=True)
 	email = db.Column(db.String(120), index=True, unique=True)
@@ -52,7 +54,6 @@ class User(db.Model):
 	#get posts from people that you're following
 	def followed_posts(self):
 		return Post.query.join(followers, (followers.c.followed_id == Post.user_id)).filter(followers.c.follower_id == self.id).order_by(Post.timestamp.desc())
-		
 	
 	@property
 	#Return true unless the object represents

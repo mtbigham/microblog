@@ -21,5 +21,9 @@ MAIL_SERVER = 'localhost'
 MAIL_PORT = 25
 MAIL_USERNAME = None
 MAIL_PASSWORD = None
-#Admin List
+
+###ADMIN LIST###
 ADMINS = ['tbigham2045@gmail.com']
+
+###PAGINATION###
+POSTS_PER_PAGE = 3

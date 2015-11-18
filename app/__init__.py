@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager
+from flask.ext.login import LoginManager, UserMixin, login_user, logout_user, current_user
 from flask.ext.openid import OpenID
 from config import basedir, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
 
